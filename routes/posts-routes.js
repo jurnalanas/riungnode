@@ -32,4 +32,14 @@ router.get('/:pid', (req, res, next) => {
   res.json({post});
 });
 
+router.get('/user/:uid', (req, res, next) => {
+  const userId = req.params.uid;
+
+  const post = DUMMY_POSTS.find(p => {
+    return p.creator === userId;
+  });
+
+  res.json({ post });
+});
+
 module.exports = router;
