@@ -9,4 +9,7 @@ router.get('/:pid', postsControllers.getPostById);
 
 router.get('/user/:uid', postsControllers.getPostByUserId);
 
+router.post('/', postsControllers.createPost);
+
+
 module.exports = router;
