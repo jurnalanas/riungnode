@@ -1,60 +1,122 @@
 const uuid = require('uuid/v4');
-const { validationResult } = require('express-validator');
+const {
+  validationResult
+} = require('express-validator');
 
 const HttpError = require('../models/http-error');
+const User = require('../models/user');
 
 const DUMMY_USERS = [{
   id: 'u1',
-  name: 'Max Schwarz',
+  name: 'Anas',
   username: 'username1',
   password: 'testers'
 }];
 
-const getUsers = (req, res, next) => {
+const getUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({}, '-password');
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching users failed, please try again later.',
+      500
+    );
+    return next(error);
+  }
   res.json({
-    users: DUMMY_USERS
+    users: users.map(user => user.toObject({
+      getters: true
+    }))
   });
 };
 
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    throw new HttpError('Invalid inputs passed, please check your data.', 422);
+    return next(
+      new HttpError('Invalid inputs passed, please check your data.', 422)
+    );
   }
   const {
     name,
     username,
-    password
+    password,
+    places
   } = req.body;
 
-  const hasUser = DUMMY_USERS.find(u => u.username === username);
-  if (hasUser) {
-    throw new HttpError('Could not create user, username already exists.', 422);
+  let existingUser
+  try {
+    existingUser = await User.findOne({
+      username: username
+    })
+  } catch (err) {
+    const error = new HttpError(
+      'Signing up failed, please try again later.',
+      500
+    );
+    return next(error);
   }
 
-  const createdUser = {
-    id: uuid(),
+  if (existingUser) {
+    const error = new HttpError(
+      'User exists already, please login instead.',
+      422
+    );
+    return next(error);
+  }
+
+  const createdUser = new User({
     name,
     username,
-    password
-  };
+    image: 'https://live.staticflickr.com/7631/26849088292_36fc52ee90_b.jpg',
+    password,
+    places
+  });
 
-  DUMMY_USERS.push(createdUser);
+  try {
+    await createdUser.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Signing up failed, please try again.',
+      500
+    );
+    return next(error);
+  }
 
   res.status(201).json({
-    user: createdUser
+    user: createdUser.toObject({
+      getters: true
+    })
   });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
   const {
     username,
     password
   } = req.body;
 
-  const identifiedUser = DUMMY_USERS.find(u => u.username === username);
-  if (!identifiedUser || identifiedUser.password !== password) {
-    throw new HttpError('Could not identify user, credentials seem to be wrong.', 401);
+  let existingUser;
+
+  try {
+    existingUser = await User.findOne({
+      username: username
+    })
+  } catch (err) {
+    const error = new HttpError(
+      'Logging in failed, please try again later.',
+      500
+    );
+    return next(error);
+  }
+
+  if (!existingUser || existingUser.password !== password) {
+    const error = new HttpError(
+      'Invalid credentials, could not log you in.',
+      401
+    );
+    return next(error);
   }
 
   res.json({
