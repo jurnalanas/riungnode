@@ -1,4 +1,4 @@
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
@@ -72,7 +72,7 @@ const createPost = async (req, res, next) => {
   const createdPost = new Post({
     title,
     body,
-    image: 'http://localhost:3000/sample-post.jpg',
+    image: image || 'http://localhost:3000/sample-post.jpg',
     creator,
     date
   });

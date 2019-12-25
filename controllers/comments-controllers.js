@@ -6,23 +6,6 @@ const {
 const HttpError = require('../models/http-error');
 const Comment = require('../models/comments');
 
-let DUMMY_COMMENTS = [{
-    creator: "user1",
-    id: 'comment1',
-    postId: 'post1',
-    created_at: new Date("12/12/2019").toDateString(),
-    body: 'this is a very insightful commnet',
-    mood: 'thumbs',
-  },
-  {
-    creator: "user1",
-    id: 'comment2',
-    postId: 'post1',
-    created_at: new Date("12/12/2019").toDateString(),
-    body: 'this is a very insightful commnet2',
-    mood: 'thumbs',
-  }
-]
 const getCommentById = async (req, res, next) => {
   const commentId = req.params.cid;
 

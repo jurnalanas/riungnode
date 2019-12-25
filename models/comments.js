@@ -12,7 +12,7 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  creator: {
+  body: {
     type: String,
     required: true
   },
