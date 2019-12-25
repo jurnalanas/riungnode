@@ -4,26 +4,26 @@ const Schema = mongoose.Schema;
 
 
 const postSchema = new Schema({
-  title: {
+  creator: {
     type: String,
     required: true
   },
-  body: {
+  postId: {
     type: String,
     required: true
-  },
-  image: {
-    type: String,
-    required: false
-  },
-  date: {
-    type: String,
-    required: false
   },
   creator: {
     type: String,
     required: true
+  },
+  mood: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: false
   }
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Comment', postSchema);

@@ -4,6 +4,7 @@ const {
 } = require('express-validator');
 
 const HttpError = require('../models/http-error');
+const Comment = require('../models/comments');
 
 let DUMMY_COMMENTS = [{
     creator: "user1",
@@ -57,7 +58,7 @@ const getCommentByPostId = (req, res, next) => {
   });
 };
 
-const createComment = (req, res, next) => {
+const createComment = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new HttpError('Invalid inputs passed, please check your data.', 422);
@@ -71,19 +72,27 @@ const createComment = (req, res, next) => {
     date
   } = req.body;
 
-  const createdComment = {
+  const createdComment = new Comment ({
     id: uuid(),
     postId,
     body,
     creator,
     mood,
     date
-  };
+  });
 
-  DUMMY_COMMENTS.push(createdComment); //unshift(createdComment)
+  try {
+    await createdComment.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Creating comment failed, please try again.',
+      500
+    );
+    return next(error);
+  }
 
   res.status(201).json({
-    comment: createComment
+    comment: createdComment
   });
 };
 
