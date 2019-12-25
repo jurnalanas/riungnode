@@ -1,4 +1,5 @@
 const uuid = require('uuid/v4');
+const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error');
 
@@ -56,6 +57,11 @@ const getPostByUserId = (req, res, next) => {
 };
 
 const createPost = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    throw new HttpError('Invalid inputs passed, please check your data.', 422);
+  }
+
   const { title, body, image, creator, date } = req.body;
 
   const createdPost = {
@@ -73,6 +79,11 @@ const createPost = (req, res, next) => {
 };
 
 const updatePost = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    throw new HttpError('Invalid inputs passed, please check your data.', 422);
+  }
+
   const { title, body } = req.body;
   const postId = req.params.pid;
 
@@ -87,6 +98,9 @@ const updatePost = (req, res, next) => {
 
 const deletePost = (req, res, next) => {
   const postId = req.params.pid;
+  if (!DUMMY_POSTS.find(p => p.id === postId)) {
+    throw new HttpError('Could not find a post for that id.', 404);
+  }
   DUMMY_POSTS = DUMMY_POSTS.filter(p => p.id !== postId);
   res.status(200).json({ message: 'Deleted post.' });
 };
