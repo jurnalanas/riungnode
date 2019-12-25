@@ -2,7 +2,7 @@ const uuid = require('uuid/v4');
 
 const HttpError = require('../models/http-error');
 
-const DUMMY_POSTS = [{
+let DUMMY_POSTS = [{
     id: 'post1',
     title: 'Title Example',
     body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt pretium fringilla. Etiam vitae est et tortor tristique cursus. Nam consequat velit eget ante tempor tincidunt. Donec velit nisi, posuere lacinia feugiat non, porta sit amet sem. Etiam euismod imperdiet maximus. Quisque eu diam ut massa mollis rhoncus. Pellentesque sit amet velit at elit rhoncus consequat ut eu diam. Ut eleifend ligula nisi, sit amet pellentesque odio vestibulum at. Nullam bibendum diam et velit auctor accumsan.',
@@ -87,7 +87,11 @@ const updatePost = (req, res, next) => {
   res.status(200).json({post: updatedPost});
 };
 
-const deletePost = (req, res, next) => {};
+const deletePost = (req, res, next) => {
+  const postId = req.params.pid;
+  DUMMY_POSTS = DUMMY_POSTS.filter(p => p.id !== postId);
+  res.status(200).json({ message: 'Deleted post.' });
+};
 
 exports.getPostById = getPostById;
 exports.getPostByUserId = getPostByUserId;
