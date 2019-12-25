@@ -74,7 +74,23 @@ const createPost = (req, res, next) => {
   res.status(201).json({post: createdPost});
 };
 
+const updatePost = (req, res, next) => {
+  const { title, body } = req.body;
+  const postId = req.params.pid;
+
+  const updatedPost = { ...DUMMY_POSTS.find(p => p.id === postId) };
+  const postIndex = DUMMY_POSTS.findIndex(p => p.id === postId);
+  updatedPost.title = title;
+  updatedPost.body = body;
+  DUMMY_POSTS[postIndex] = updatedPost;
+
+  res.status(200).json({post: updatedPost});
+};
+
+const deletePost = (req, res, next) => {};
+
 exports.getPostById = getPostById;
 exports.getPostByUserId = getPostByUserId;
 exports.createPost = createPost;
-
+exports.updatePost = updatePost;
+exports.deletePost = deletePost;
