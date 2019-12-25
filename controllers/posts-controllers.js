@@ -9,7 +9,6 @@ const DUMMY_POSTS = [{
     imageUrl: 'http://localhost:3000/sample-post.jpg',
     creator: 'user1',
     date: new Date().toLocaleDateString(),
-    commentsId: ['comment1']
   },
   {
     id: 'test2',
@@ -18,7 +17,6 @@ const DUMMY_POSTS = [{
     imageUrl: 'http://localhost:3000/sample-post.jpg',
     creator: 'user2',
     date: new Date().toLocaleDateString(),
-    commentsId: ['comment2']
   }
 ];
 
