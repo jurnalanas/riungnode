@@ -1,7 +1,7 @@
 {
   "name": "riungnode",
   "version": "0.0.1",
-  "description": "backend for ngariung app",
+  "description": "Backend for ngariung app",
   "main": "index.js",
   "author": "Muhammad Nasrurrohman <anas@jurnalanas.com>",
   "license": "MIT",
