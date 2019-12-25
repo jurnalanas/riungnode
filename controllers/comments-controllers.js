@@ -23,29 +23,49 @@ let DUMMY_COMMENTS = [{
     mood: 'thumbs',
   }
 ]
-const getCommentById = (req, res, next) => {
+const getCommentById = async (req, res, next) => {
   const commentId = req.params.cid;
 
-  const comments = DUMMY_COMMENTS.find(c => {
-    return c.id === commentId;
-  });
+  let comment;
+  try {
+    comment = await Comment.findById(commentId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find a comment.',
+      500
+    );
+    return next(error);
+  }
 
-  if (!comments || comments.length === 0) {
-    throw new HttpError('Could not find a comment for the provided id.', 404);
+  if (!comment) {
+    const error = new HttpError(
+      'Could not find a post for the provided id.',
+      404
+    );
+    return next(error);
   }
 
   res.json({
-    comments
+    comment: comment.toObject({ getters: true })
   });
 };
 
 
-const getCommentByPostId = (req, res, next) => {
+const getCommentByPostId = async (req, res, next) => {
   const postId = req.params.pid;
 
-  const comments = DUMMY_COMMENTS.find(c => {
-    return c.postId === postId;
-  });
+  let comments;
+  try {
+    comments = await Comment.find({
+      postId: postId
+    });
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find a comment.',
+      500
+    );
+    return next(error);
+  }
 
   if (!comments || comments.length === 0) {
     return next(
@@ -54,7 +74,7 @@ const getCommentByPostId = (req, res, next) => {
   }
 
   res.json({
-    comments
+    comments: comments.toObject({ getters: true })
   });
 };
 
@@ -96,7 +116,7 @@ const createComment = async (req, res, next) => {
   });
 };
 
-const updateComment = (req, res, next) => {
+const updateComment = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new HttpError('Invalid inputs passed, please check your data.', 422);
@@ -106,27 +126,60 @@ const updateComment = (req, res, next) => {
     body,
     mood
   } = req.body;
-  const commentId = req.params.pid;
+  const commentId = req.params.cid;
 
-  const updatedComment = {
-    ...DUMMY_COMMENTS.find(c => c.id === commentId)
-  };
-  const postIndex = DUMMY_COMMENTS.findIndex(c => c.id === commentId);
-  updatedComment.body = body;
-  updatedComment.mood = mood;
-  DUMMY_COMMENTS[postIndex] = updatedComment;
+  let comment;
+  try {
+    comment = await Comment.findById(commentId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update comment.',
+      500
+    );
+    return next(error);
+  }
+  comment.body = body;
+  comment.mood = mood;
+
+  try {
+    await comment.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update comment.',
+      500
+    );
+    return next(error);
+  }
 
   res.status(200).json({
-    comment: updatedComment
+    comment: comment.toObject({ getters: true })
   });
 };
 
-const deleteComment = (req, res, next) => {
-  const commentId = req.params.pid;
-  if (!DUMMY_COMMENTS.find(c => c.id === commentId)) {
-    throw new HttpError('Could not find a post for that id.', 404);
+const deleteComment = async (req, res, next) => {
+  const commentId = req.params.cid;
+
+  let comment;
+  try {
+    comment = await Comment.findById(commentId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not delete comment.',
+      500
+    );
+    return next(error);
   }
-  DUMMY_COMMENTS = DUMMY_COMMENTS.filter(c => c.id !== commentId);
+
+  try {
+    await comment.remove();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not delete comment.',
+      500
+    );
+    return next(error);
+  }
+
   res.status(200).json({
     message: 'Deleted post.'
   });

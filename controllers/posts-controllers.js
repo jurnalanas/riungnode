@@ -142,12 +142,30 @@ const updatePost = async (req, res, next) => {
   res.status(200).json({post: post.toObject({ getters: true })});
 };
 
-const deletePost = (req, res, next) => {
+const deletePost = async (req, res, next) => {
   const postId = req.params.pid;
-  if (!DUMMY_POSTS.find(p => p.id === postId)) {
-    throw new HttpError('Could not find a post for that id.', 404);
+
+  let post;
+  try {
+    post = await Post.findById(postId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not delete post.',
+      500
+    );
+    return next(error);
   }
-  DUMMY_POSTS = DUMMY_POSTS.filter(p => p.id !== postId);
+
+  try {
+    await post.remove();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not delete post.',
+      500
+    );
+    return next(error);
+  }
+
   res.status(200).json({ message: 'Deleted post.' });
 };
 

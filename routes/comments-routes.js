@@ -29,7 +29,7 @@ router.post('/',
   commentsController.createComment
 );
 
-router.patch('/:pid',
+router.patch('/:cid',
   [
     check('mood')
       .not()
@@ -39,6 +39,6 @@ router.patch('/:pid',
   commentsController.updateComment
 );
 
-router.delete('/:pid', commentsController.deleteComment);
+router.delete('/:cid', commentsController.deleteComment);
 
 module.exports = router;
