@@ -22,29 +22,49 @@ let DUMMY_POSTS = [{
   }
 ];
 
-const getPostById = (req, res, next) => {
+const getPostById = async (req, res, next) => {
   const postId = req.params.pid;
 
-  const posts = DUMMY_POSTS.find(p => {
-    return p.id === postId;
-  });
+  let post;
+  try {
+    post = await Post.findById(postId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find a post.',
+      500
+    );
+    return next(error);
+  }
 
-  if (!posts || posts.length === 0) {
-    throw new HttpError('Could not find a post for the provided id.', 404);
+  if (!post) {
+    const error = new HttpError(
+      'Could not find a post for the provided id.',
+      404
+    );
+    return next(error);
   }
 
   res.json({
-    posts
+    post: post.toObject({ getters: true })
   });
 };
 
 
-const getPostByUserId = (req, res, next) => {
+const getPostByUserId = async (req, res, next) => {
   const userId = req.params.uid;
 
-  const posts = DUMMY_POSTS.find(p => {
-    return p.creator === userId;
-  });
+  let posts;
+  try {
+    posts = await Post.find({
+      creator: userId
+    });
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find a post.',
+      500
+    );
+    return next(error);
+  }
 
   if (!posts || posts.length === 0) {
     return next(
@@ -53,7 +73,7 @@ const getPostByUserId = (req, res, next) => {
   }
 
   res.json({
-    posts
+    posts: posts.map(post => post.toObject({ getters: true }))
   });
 };
 
@@ -87,7 +107,7 @@ const createPost = async (req, res, next) => {
   res.status(201).json({post: createdPost});
 };
 
-const updatePost = (req, res, next) => {
+const updatePost = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new HttpError('Invalid inputs passed, please check your data.', 422);
@@ -96,13 +116,30 @@ const updatePost = (req, res, next) => {
   const { title, body } = req.body;
   const postId = req.params.pid;
 
-  const updatedPost = { ...DUMMY_POSTS.find(p => p.id === postId) };
-  const postIndex = DUMMY_POSTS.findIndex(p => p.id === postId);
-  updatedPost.title = title;
-  updatedPost.body = body;
-  DUMMY_POSTS[postIndex] = updatedPost;
+  let post;
+  try {
+    post = await Post.findById(postId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update post.',
+      500
+    );
+    return next(error);
+  }
+  post.title = title;
+  post.body = body;
 
-  res.status(200).json({post: updatedPost});
+  try {
+    await post.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update post.',
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({post: post.toObject({ getters: true })});
 };
 
 const deletePost = (req, res, next) => {
