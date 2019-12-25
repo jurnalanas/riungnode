@@ -29,6 +29,13 @@ router.get('/:pid', (req, res, next) => {
   const post = DUMMY_POSTS.find(p => {
     return p.id === postId;
   })
+
+  if (!post) {
+    const error = new Error('Could not find a post for the provided id.');
+    error.code = 404;
+    throw error;
+  }
+
   res.json({post});
 });
 
@@ -38,6 +45,12 @@ router.get('/user/:uid', (req, res, next) => {
   const post = DUMMY_POSTS.find(p => {
     return p.creator === userId;
   });
+
+  if (!post) {
+    const error = new Error('Could not find a post for the provided user id.');
+    error.code = 404;
+    return next(error);
+  }
 
   res.json({ post });
 });
