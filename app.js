@@ -2,13 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const postsRoutes = require('./routes/posts-routes');
+const usersRoute = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
 
 
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/posts', postsRoutes);
+app.use('/api/users', usersRoute);
+
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route.', 404);

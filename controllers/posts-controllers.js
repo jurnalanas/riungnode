@@ -21,45 +21,43 @@ let DUMMY_POSTS = [{
 ];
 
 const getPostById = (req, res, next) => {
-  const postId = req.params.pid; // { pid: 'p1' }
+  const postId = req.params.pid;
 
-  const post = DUMMY_POSTS.find(p => {
+  const posts = DUMMY_POSTS.find(p => {
     return p.id === postId;
   });
 
-  if (!post) {
+  if (!posts || posts.length === 0) {
     throw new HttpError('Could not find a post for the provided id.', 404);
   }
 
   res.json({
-    post
-  }); // => { place } => { place: place }
+    posts
+  });
 };
 
-// function getPlaceById() { ... }
-// const getPlaceById = function() { ... }
 
 const getPostByUserId = (req, res, next) => {
   const userId = req.params.uid;
 
-  const post = DUMMY_POSTS.find(p => {
+  const posts = DUMMY_POSTS.find(p => {
     return p.creator === userId;
   });
 
-  if (!post) {
+  if (!posts || posts.length === 0) {
     return next(
       new HttpError('Could not find a post for the provided user id.', 404)
     );
   }
 
   res.json({
-    post
+    posts
   });
 };
 
 const createPost = (req, res, next) => {
   const { title, body, image, creator, date } = req.body;
-  // const title = req.body.title;
+
   const createdPost = {
     id: uuid(),
     title,
