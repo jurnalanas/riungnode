@@ -6,6 +6,23 @@ const HttpError = require('../models/http-error');
 const Post = require('../models/post');
 const User = require('../models/user');
 
+const getPosts = async (req, res, next) => {
+  let posts;
+  try {
+    posts = await Post.find({}, {});
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching posts failed, please try again later.',
+      500
+    );
+    return next(error);
+  }
+  res.json({
+    posts: posts.map(post => post.toObject({
+      getters: true
+    }))
+  });
+};
 
 const getPostById = async (req, res, next) => {
   const postId = req.params.pid;
@@ -40,7 +57,8 @@ const getPostByUserId = async (req, res, next) => {
 
   let userWithPosts;
   try {
-    userWithPosts = await User.findById(userId).populate('posts')
+    userWithPosts = await User.findById(userId).populate('posts');
+    // TODO: user the previous way
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not find a post.',
@@ -93,7 +111,6 @@ const createPost = async (req, res, next) => {
     return next(error);
   }
 
-  console.log(user);
 
   try {
     const sess = await mongoose.startSession();
@@ -196,3 +213,4 @@ exports.getPostByUserId = getPostByUserId;
 exports.createPost = createPost;
 exports.updatePost = updatePost;
 exports.deletePost = deletePost;
+exports.getPosts= getPosts;

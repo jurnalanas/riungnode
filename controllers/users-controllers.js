@@ -111,7 +111,8 @@ const login = async (req, res, next) => {
   }
 
   res.json({
-    message: 'Logged in!'
+    message: 'Logged in!',
+    user: existingUser.toObject({ getters: true })
   });
 };
 

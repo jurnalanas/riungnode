@@ -5,6 +5,7 @@ const postsControllers = require('../controllers/posts-controllers');
 
 const router = express.Router();
 
+router.get('/', postsControllers.getPosts);
 
 router.get('/:pid', postsControllers.getPostById);
 
@@ -17,6 +18,9 @@ router.post('/',
       .isEmpty(),
     check('body').isLength({ min: 10 }),
     check('date')
+      .not()
+      .isEmpty(),
+    check('creator')
       .not()
       .isEmpty()
   ],
