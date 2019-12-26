@@ -101,14 +101,14 @@ const createPost = async (req, res, next) => {
     await createdPost.save({
       session: sess
     });
-    user.places.push(createdPost);
+    user.posts.push(createdPost);
     await user.save({
       session: sess
     });
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating post failed, please try again.',
       500
     );
     return next(error);

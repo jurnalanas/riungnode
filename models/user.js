@@ -19,11 +19,11 @@ const userSchema = new Schema({
     required: true,
     minlength: 6
   },
-  posts: {
+  posts: [{
     type: mongoose.Types.ObjectId,
     required: true,
     ref: 'Post',
-  },
+  }],
 });
 
 userSchema.plugin(uniqueValidator);
