@@ -1,12 +1,10 @@
 # RiungNode
 
-[![Build Status](https://travis-ci.org/jurnalanas/riungnode.svg?branch=master)](https://travis-ci.org/jurnalanas/riungnode)
-
 ## Setup
 
 ### Prerequisites
 
-- [Node >= 12.x.x](https://nodejs.org/en/)
+- [Node >= 11.x.x](https://nodejs.org/en/)
 - [MongoDB >= 4.0](https://www.mongodb.com/)
 - [Yarn](https://yarnpkg.com/en/)
 
