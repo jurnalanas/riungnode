@@ -43,15 +43,19 @@ app.use((error, req, res, next) => {
   });
 });
 
+const url =
+  process.env.MONGODB_URI ||
+  process.env.DB_URL ||
+  'mongodb://localhost:27017/ngariung-test';
 
 mongoose
-  .connect(`${process.env.MONGO_DB}`, {
+  .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
   .then(() => {
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT) || 5000;
   })
   .catch(err => {
     console.log(err);

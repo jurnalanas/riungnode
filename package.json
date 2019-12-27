@@ -6,8 +6,11 @@
   "author": "Muhammad Nasrurrohman <anas@jurnalanas.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js",
+    "build": "babel src --out-dir dist",
+    "dev": "nodemon --exec yarn restart",
+    "start": "nodemon dist/app.js",
     "lint": "eslint \"src/**/*.{js}\" --quiet",
+    "restart": "rimraf dist && yarn build && yarn start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -19,11 +22,21 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.8.0",
     "eslint-plugin-import": "^2.19.1",
+    "jest": "^24.9.0",
+    "mock-req-res": "^1.1.4",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
+    "supertest": "^4.0.2"
   }
 }
