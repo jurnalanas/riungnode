@@ -47,7 +47,6 @@ const getCommentByPostId = async (req, res, next) => {
     );
     return next(error);
   }
-  console.log(postWithComments)
   if (!postWithComments || postWithComments.length === 0) {
     return next(
       new HttpError('Could not find a post for the provided post id.', 404)
@@ -63,7 +62,6 @@ const getCommentByPostId = async (req, res, next) => {
 
 const createComment = async (req, res, next) => {
   const errors = validationResult(req);
-  console.log(req.body)
   if (!errors.isEmpty()) {
     throw new HttpError('Invalid inputs passed, please check your data.', 422);
   }

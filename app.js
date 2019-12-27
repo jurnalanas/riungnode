@@ -6,7 +6,7 @@ const postsRoutes = require('./routes/posts-routes');
 const usersRoute = require('./routes/users-routes');
 const commentsRoute = require('./routes/comments-routes');
 const HttpError = require('./models/http-error');
-
+require('dotenv').config()
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,14 +43,15 @@ app.use((error, req, res, next) => {
   });
 });
 
+
 mongoose
-  .connect('mongodb://localhost:27017/ngariung-dev?replicaSet=rs&readPreference=primaryPreferred', {
+  .connect(`${process.env.MONGO_DB}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
   .then(() => {
-    app.listen(5000);
+    app.listen(process.env.PORT);
   })
   .catch(err => {
     console.log(err);
