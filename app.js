@@ -44,7 +44,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb://localhost:27017/ngariung-dev', {
+  .connect('mongodb://localhost:27017/ngariung-dev?replicaSet=rs&readPreference=primaryPreferred', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
