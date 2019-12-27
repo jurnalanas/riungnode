@@ -37,11 +37,9 @@ const getCommentById = async (req, res, next) => {
 const getCommentByPostId = async (req, res, next) => {
   const postId = req.params.pid;
 
-  let comments;
+  let postWithComments;
   try {
-    comments = await Comment.find({
-      postId: postId
-    });
+    postWithComments = await Comment.find({postId: postId}).populate('comments');
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not find a comment.',
@@ -49,23 +47,27 @@ const getCommentByPostId = async (req, res, next) => {
     );
     return next(error);
   }
-
-  if (!comments || comments.length === 0) {
+  console.log(postWithComments)
+  if (!postWithComments || postWithComments.length === 0) {
     return next(
-      new HttpError('Could not find a post for the provided user id.', 404)
+      new HttpError('Could not find a post for the provided post id.', 404)
     );
   }
 
   res.json({
-    comments: comments.toObject({ getters: true })
+    comments: postWithComments.map(comment => comment.toObject({
+      getters: true
+    }))
   });
 };
 
 const createComment = async (req, res, next) => {
   const errors = validationResult(req);
+  console.log(req.body)
   if (!errors.isEmpty()) {
     throw new HttpError('Invalid inputs passed, please check your data.', 422);
   }
+
 
   const {
     postId,

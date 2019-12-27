@@ -6,6 +6,7 @@ const usersController = require('../controllers/users-controllers');
 const router = express.Router();
 
 router.get('/', usersController.getUsers);
+// TODO: User by Id
 
 router.post('/signup',
   [

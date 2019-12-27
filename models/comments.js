@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const postSchema = new Schema({
+const commentSchema = new Schema({
   creator: {
     type: String,
     required: true
@@ -26,4 +26,4 @@ const postSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Comment', postSchema);
+module.exports = mongoose.model('Comment', commentSchema);
