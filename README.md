@@ -1,5 +1,7 @@
 # RiungNode
 
+RESTAPI for [Ngariung](https://github.com/jurnalanas/ngariung) app.
+
 ## Setup
 
 ### Prerequisites
