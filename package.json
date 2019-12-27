@@ -42,5 +42,15 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ],
+    "restoreMocks": true,
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
