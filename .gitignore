@@ -19,6 +19,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.nyc_output
 ideas.md
 
 npm-debug.log*

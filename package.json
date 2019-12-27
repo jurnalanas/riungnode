@@ -8,6 +8,7 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "test": "NODE_ENV=testing jest --forceExit --detectOpenHandles  --silent",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "test-routes": "yarn test -t router",
     "test-models": "yarn test -t model",
     "test-controllers": "yarn test -t controllers",
@@ -42,5 +43,13 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ],
+    "restoreMocks": true
   }
 }
