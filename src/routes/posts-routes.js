@@ -5,38 +5,42 @@ const postsControllers = require('../controllers/posts-controllers');
 
 const router = express.Router();
 
-router.get('/', postsControllers.getPosts);
+router
+  .route('/')
+  .get(postsControllers.getPosts)
+  .post(
+    [
+      check("title")
+        .not()
+        .isEmpty(),
+      check("body").isLength({ min: 10 }),
+      check("date")
+        .not()
+        .isEmpty(),
+      check("creator")
+        .not()
+        .isEmpty()
+    ],
+    postsControllers.createPost
+  );
 
-router.get('/:pid', postsControllers.getPostById);
 
-router.get('/user/:uid', postsControllers.getPostByUserId);
+router
+  .route('/:pid')
+  .get(postsControllers.getPostById)
+  .delete(postsControllers.deletePost)
+  .patch(
+    [
+      check("title")
+        .not()
+        .isEmpty(),
+      check("body").isLength({ min: 10 })
+    ],
+    postsControllers.updatePost
+  );
 
-router.post('/',
-  [
-    check('title')
-      .not()
-      .isEmpty(),
-    check('body').isLength({ min: 10 }),
-    check('date')
-      .not()
-      .isEmpty(),
-    check('creator')
-      .not()
-      .isEmpty()
-  ],
-  postsControllers.createPost
-);
-
-router.patch('/:pid',
-  [
-    check('title')
-      .not()
-      .isEmpty(),
-    check('body').isLength({ min: 10 })
-  ],
-  postsControllers.updatePost
-);
-
-router.delete('/:pid', postsControllers.deletePost);
+router
+  .route('/user/:uid')
+  .get(postsControllers.getPostByUserId)
 
 module.exports = router;

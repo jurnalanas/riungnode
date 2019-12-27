@@ -7,11 +7,11 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --out-dir dist",
+    "test": "NODE_ENV=testing jest --forceExit --detectOpenHandles  --silent",
     "dev": "nodemon --exec yarn restart",
     "start": "nodemon dist/app.js",
     "lint": "eslint \"src/**/*.{js}\" --quiet",
-    "restart": "rimraf dist && yarn build && yarn start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "restart": "rimraf dist && yarn build && yarn start"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
