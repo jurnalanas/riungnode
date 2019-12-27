@@ -1,6 +1,6 @@
 # RiungNode
 
-RESTAPI for [Ngariung](https://github.com/jurnalanas/ngariung) app.
+REST API for [Ngariung](https://github.com/jurnalanas/ngariung) app.
 
 ## Setup
 
@@ -56,7 +56,7 @@ $ yarn start # server will run at port 5000
 
 ## Endpoints
 
-For all API endpoints, please read in the doc.
+For all API endpoints, please read in the [doc](/doc).
 
 ## Author
 - Muhammad Nasrurrohman - [@jurnalanas](https://github.com/jurnalanas)
