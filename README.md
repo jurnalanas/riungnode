@@ -56,7 +56,7 @@ $ yarn start # server will run at port 5000
 
 ## Endpoints
 
-For all API endpoints, please read in the [doc](/doc).
+For all API endpoints, please read in the [doc](https://jurnalanas.github.io/riungnode).
 
 ## Author
 - Muhammad Nasrurrohman - [@jurnalanas](https://github.com/jurnalanas)
