@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css" integrity="sha256-3FfMfpeajSEpxWZTFowWZPTv7k3GEu7w4rQv49EWsEY=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.1.0/themes/prism-a11y-dark.css" integrity="sha256-d2qy226pP+oHAtEQPujaiXPslYW1Rmtla3Ivu1fFYxU=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-switch@2.0.0/dist/css/bulma-switch.min.css" integrity="sha256-jCV/cXwP13w0GNHLgFx6SFgTNAvJPvS5MIhuE30Ng08=" crossorigin="anonymous">
-    
+
     <style>
       @media screen and (min-width: 768px) {
         .navbar-burger {
@@ -503,9 +503,9 @@
         const to = node.getBoundingClientRect();
         if (from.left === to.left && from.right === to.right && from.top === to.top && from.bottom === to.bottom)
             return noop;
-        const { delay = 0, duration = 300, easing = identity, 
+        const { delay = 0, duration = 300, easing = identity,
         // @ts-ignore todo: should this be separated from destructuring? Or start/end added to public api and documentation?
-        start: start_time = now() + delay, 
+        start: start_time = now() + delay,
         // @ts-ignore todo:
         end = start_time + duration, tick = noop, css } = fn(node, { from, to }, params);
         let running = true;
@@ -7432,15 +7432,15 @@
         function isString (value) {
             return Object.prototype.toString.apply(value) === '[object String]';
         }
-        
+
         function isNumber (value) {
             return Object.prototype.toString.apply(value) === '[object Number]';
         }
-        
+
         function isBoolean (value) {
             return Object.prototype.toString.apply(value) === '[object Boolean]';
         }
-        
+
         function join (arr, separator) {
             var
                 result = '',
@@ -13554,7 +13554,7 @@
     					if_block1.c();
     					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
     				} else {
-    					
+
     				}
     			} else if (if_block1) {
     				if_block1.d(1);
@@ -14588,7 +14588,7 @@
     		c() {
     			a = element("a");
 
-    			a.innerHTML = `<span class="icon has-text-grey"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span> 
+    			a.innerHTML = `<span class="icon has-text-grey"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span>
   <span>Logout</span>`;
 
     			attr(a, "href", "javascript:void(0)");
@@ -14769,7 +14769,7 @@
     	};
     }
 
-    // (52:33) 
+    // (52:33)
     function create_if_block_3$1(ctx) {
     	let div1;
     	let div0;
@@ -15845,7 +15845,7 @@
     		c() {
     			button = element("button");
 
-    			button.innerHTML = `<span class="icon"><i class="fas fa-paper-plane"></i></span> 
+    			button.innerHTML = `<span class="icon"><i class="fas fa-paper-plane"></i></span>
             <span>Send</span>`;
 
     			attr(button, "class", "button is-success is-fullwidth");
@@ -17265,7 +17265,7 @@
     			info.ctx = ctx;
 
     			if (dirty[0] & /*response*/ 128 && promise !== (promise = /*response*/ ctx[7]) && handle_promise(promise, info)) {
-    				
+
     			} else {
     				const child_ctx = ctx.slice();
     				child_ctx[28] = info.resolved;
@@ -18690,6 +18690,83 @@
 
     	return {
     		c() {
+    			div8 = element("div");
+    			nav = element("nav");
+    			div0 = element("div");
+    			a0 = element("a");
+    			span0 = element("span");
+    			span0.innerHTML = `<i class="fas fa-lg fa-chalkboard"></i>`;
+    			t0 = space();
+    			span1 = element("span");
+    			t1 = text(/*title*/ ctx[0]);
+    			t2 = space();
+    			a1 = element("a");
+
+    			a1.innerHTML = `<span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>`;
+
+    			t5 = space();
+    			div2 = element("div");
+    			div1 = element("div");
+    			if (if_block0) if_block0.c();
+    			t6 = space();
+    			if (if_block1) if_block1.c();
+    			t7 = space();
+    			div6 = element("div");
+    			div4 = element("div");
+    			create_component(menupanel.$$.fragment);
+    			t8 = space();
+    			div3 = element("div");
+    			if (if_block2) if_block2.c();
+    			t9 = space();
+    			if (if_block3) if_block3.c();
+    			t10 = space();
+    			div5 = element("div");
+    			if (if_block4) if_block4.c();
+    			t11 = space();
+    			if (if_block5) if_block5.c();
+    			t12 = space();
+    			footer = element("footer");
+    			div7 = element("div");
+    			p = element("p");
+    			strong0 = element("strong");
+    			attr(span0, "class", "icon icon-brand is-medium has-text-grey-light svelte-1jcck2f");
+    			attr(span1, "class", "title is-4");
+    			attr(a0, "href", "javascript:void(0)");
+    			attr(a0, "class", "navbar-item");
+    			attr(a1, "href", "javascript:void(0)");
+    			attr(a1, "role", "button");
+    			attr(a1, "class", "navbar-burger");
+    			attr(a1, "aria-label", "menu");
+    			attr(a1, "aria-expanded", "false");
+    			attr(a1, "data-target", "mainnav");
+    			attr(div0, "class", "navbar-brand");
+    			attr(div1, "class", "navbar-end");
+    			attr(div2, "class", "navbar-menu");
+    			attr(nav, "class", "navbar is-fixed-top has-shadow");
+    			attr(nav, "role", "navigation");
+    			attr(nav, "aria-label", "main navigation");
+    			attr(div3, "class", "menu-collapsible svelte-1jcck2f");
+    			toggle_class(div3, "is-darkmode", /*darkMode*/ ctx[9].active);
+    			attr(div4, "class", "column is-one-quarter sidenav svelte-1jcck2f");
+    			attr(div4, "id", "mainnav");
+    			toggle_class(div4, "is-hidden-mobile", /*showMenu*/ ctx[5]);
+    			attr(div5, "class", "column is-three-quarters main svelte-1jcck2f");
+    			toggle_class(div5, "is-darkmode", /*darkMode*/ ctx[9].active);
+    			attr(div6, "class", "columns svelte-1jcck2f");
+    			toggle_class(div6, "is-collapsed", /*collapsed*/ ctx[6]);
+    			attr(div7, "class", "content column is-paddingless has-text-centered svelte-1jcck2f");
+    			toggle_class(div7, "is-offset-one-quarter", !/*collapsed*/ ctx[6]);
+    			attr(footer, "class", "footer svelte-1jcck2f");
+    			toggle_class(footer, "is-darkmode", /*darkMode*/ ctx[9].active);
+    			attr(div8, "class", "body-inner svelte-1jcck2f");
+    			toggle_class(div8, "is-darkmode", /*darkMode*/ ctx[9].active);
+
+    			dispose = [
+    				listen(a1, "click", /*burgerClick*/ ctx[17]),
+    				listen(div3, "click", /*collapseToggle*/ ctx[18])
+    			];
     		},
     		m(target, anchor) {
     			insert(target, div8, anchor);
@@ -18785,7 +18862,7 @@
     					if_block2.c();
     					if_block2.m(div3, t9);
     				} else {
-    					
+
     				}
     			} else if (if_block2) {
     				if_block2.d(1);
@@ -18798,7 +18875,7 @@
     					if_block3.c();
     					if_block3.m(div3, null);
     				} else {
-    					
+
     				}
     			} else if (if_block3) {
     				if_block3.d(1);
