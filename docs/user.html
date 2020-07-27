@@ -18731,6 +18731,10 @@
     			div7 = element("div");
     			p = element("p");
     			strong0 = element("strong");
+    			t13 = text(/*title*/ ctx[0]);
+    			t14 = text("\n        powered by\n        ");
+    			a2 = element("a");
+    			a2.innerHTML = `<strong>Ngariung.</strong>`;
     			attr(span0, "class", "icon icon-brand is-medium has-text-grey-light svelte-1jcck2f");
     			attr(span1, "class", "title is-4");
     			attr(a0, "href", "javascript:void(0)");
@@ -18756,6 +18760,8 @@
     			toggle_class(div5, "is-darkmode", /*darkMode*/ ctx[9].active);
     			attr(div6, "class", "columns svelte-1jcck2f");
     			toggle_class(div6, "is-collapsed", /*collapsed*/ ctx[6]);
+    			attr(a2, "href", "https://github.com/jurnalanas/riungnode");
+    			attr(a2, "target", "_blank");
     			attr(div7, "class", "content column is-paddingless has-text-centered svelte-1jcck2f");
     			toggle_class(div7, "is-offset-one-quarter", !/*collapsed*/ ctx[6]);
     			attr(footer, "class", "footer svelte-1jcck2f");
